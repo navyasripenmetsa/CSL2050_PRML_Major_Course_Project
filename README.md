@@ -1,7 +1,6 @@
 # PRML_Project
- Project for PRML Course
  <br>
- This is a Pattern Recognition and Machine Learning Project
+ Pattern Recognition and Machine Learning Major Course Project
  <br>
  course Code : CSL2050
  
