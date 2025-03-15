@@ -1,1 +1,0 @@
-Link for HOG dataset : https://drive.google.com/file/d/1_HjftA6cxdPdCvg8DkamCteqGYK47ow8/view?usp=sharing
