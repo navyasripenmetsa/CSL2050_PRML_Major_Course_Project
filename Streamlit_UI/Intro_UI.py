@@ -7,9 +7,6 @@ import LightGBM_ui
 import Naive_Bayes_ui
 import Decision_Tree_UI
 import Logistic_Regression_ui
-
-
-
 # Background gradient styling for the main page
 gradient_bg = """
 <style>
@@ -19,30 +16,18 @@ gradient_bg = """
 }
 </style>
 """
+st.markdown(
+    """
+    <style>
+    label {
+        color: white !important;
+        font-weight: bold;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 st.markdown(gradient_bg, unsafe_allow_html=True)
-
-
-# Custom CSS to change selected option color to violet
-# Custom CSS to change the selected option's color to violet
-sidebar_style = """
-<style>
-/* Change Selected Option Color to Violet */
-div[data-testid="stSidebarNav"] > ul > li[data-menuitemid].active {
-    background-color: #6a0dad !important; /* Violet */
-    color: white !important;
-    font-weight: bold !important;
-}
-
-/* Change Hover Color */
-div[data-testid="stSidebarNav"] > ul > li[data-menuitemid]:hover {
-    background-color: #dcd0ff !important; /* Light Violet */
-    color: #6a0dad !important;
-}
-</style>
-"""
-
-st.markdown(sidebar_style, unsafe_allow_html=True)
-# Sidebar with Model Selection
 with st.sidebar:
     selected = option_menu(
         menu_title="SELECT MODEL",  # Sidebar title
