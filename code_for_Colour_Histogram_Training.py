@@ -4,14 +4,22 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-# Define the dataset path (update this to your dataset location)
-dataset_path = r"Fruits_Classification_Dataset/fruits-360_dataset_original-size/fruits-360-original-size/Training"
+# Get the current script's directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Define the dataset path dynamically (relative to script directory)
+dataset_path = os.path.join(script_dir, "Fruits_Classification_Dataset", "fruits-360_dataset_100x100", "fruits-360", "Training")
+
+# Check if the dataset path exists
+if not os.path.exists(dataset_path):
+    print(f"Error: Dataset path '{dataset_path}' does not exist!")
+    exit()
 
 # Number of bins per channel
 bins = 8
 
 # Output CSV file
-output_csv = "colour_Histogram_Training.csv"
+output_csv = os.path.join(script_dir, "colour_Histogram_Training.csv")
 
 # List to store extracted features
 data = []
@@ -30,6 +38,10 @@ for fruit_class in tqdm(os.listdir(dataset_path), desc="Processing Fruits"):
 
         # Read image using OpenCV
         image = cv2.imread(image_path)
+        
+        if image is None:
+            print(f"Warning: Could not read {image_path}")
+            continue
 
         # Convert image to RGB (OpenCV loads images in BGR by default)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -40,9 +52,9 @@ for fruit_class in tqdm(os.listdir(dataset_path), desc="Processing Fruits"):
         hist_b = cv2.calcHist([image], [2], None, [bins], [0, 256]).flatten()
 
         # Normalize histograms
-        hist_r /= hist_r.sum()
-        hist_g /= hist_g.sum()
-        hist_b /= hist_b.sum()
+        hist_r /= hist_r.sum() if hist_r.sum() > 0 else 1
+        hist_g /= hist_g.sum() if hist_g.sum() > 0 else 1
+        hist_b /= hist_b.sum() if hist_b.sum() > 0 else 1
 
         # Concatenate features (R, G, B histograms)
         features = np.concatenate([hist_r, hist_g, hist_b])
