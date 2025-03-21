@@ -7,6 +7,7 @@ import LightGBM_ui
 import Naive_Bayes_ui
 import Decision_Tree_UI
 import Logistic_Regression_ui
+
 # Background gradient styling for the main page
 gradient_bg = """
 <style>
@@ -28,6 +29,35 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(gradient_bg, unsafe_allow_html=True)
+
+# Sidebar sky blue theme
+sidebar_style = """
+<style>
+    [data-testid="stSidebar"] {
+        background-color: #87CEEB;  /* Sky blue */
+    }
+
+    [data-testid="stSidebar"] .css-1cpxqw2 {
+        color: #003366;  /* Dark blue text */
+        font-weight: bold;
+    }
+
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
+        color: #003366;
+    }
+
+    .css-1v3fvcr.e1fqkh3o3 {
+        background-color: #00BFFF !important;  /* Deep sky blue */
+        color: white !important;
+        font-weight: bold;
+    }
+</style>
+"""
+st.markdown(sidebar_style, unsafe_allow_html=True)
+
+# Sidebar option menu
 with st.sidebar:
     selected = option_menu(
         menu_title="SELECT MODEL",  # Sidebar title
@@ -47,12 +77,11 @@ elif selected == "LIGHT-GBM":
     LightGBM_ui.run()
 elif selected == "NAIVE-BAYES":
     Naive_Bayes_ui.run()
-elif selected=="DECISION-TREE":
+elif selected == "DECISION-TREE":
     Decision_Tree_UI.run()
-elif selected=="LOGISTIC-REGRESSION":
+elif selected == "LOGISTIC-REGRESSION":
     Logistic_Regression_ui.run()
 else:  # HOME page content
-    # Title and Project Information
     st.title("Pattern Recognition and Machine Learning Course Project (CSL2050) 📊")
     st.header("Project : Fruits Classification")
     st.divider()
@@ -78,7 +107,4 @@ else:  # HOME page content
     st.divider()
 
     # GitHub Link
-    st.markdown("**🔗 GITHUB LINK:**(https://github.com/navyasripenmetsa/CSL2050_PRML_Major_Course_Project)")
-
-
-
+    st.markdown("**🔗 GITHUB LINK:** [CSL2050_PRML_Major_Course_Project](https://github.com/navyasripenmetsa/CSL2050_PRML_Major_Course_Project)")
