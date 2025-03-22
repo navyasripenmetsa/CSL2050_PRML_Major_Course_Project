@@ -39,6 +39,11 @@ for fruit_class in tqdm(os.listdir(dataset_path), desc="Processing Fruits"):
         hist_g = cv2.calcHist([image], [1], None, [bins], [0, 256]).flatten()
         hist_b = cv2.calcHist([image], [2], None, [bins], [0, 256]).flatten()
 
+        # Normalize histograms
+        hist_r /= hist_r.sum() if hist_r.sum() > 0 else 1
+        hist_g /= hist_g.sum() if hist_g.sum() > 0 else 1
+        hist_b /= hist_b.sum() if hist_b.sum() > 0 else 1
+
         # Concatenate features (R, G, B histograms)
         features = np.concatenate([hist_r, hist_g, hist_b])
 
