@@ -8,7 +8,7 @@ from tqdm import tqdm
 dataset_path = r"Fruits_Classification_Dataset/fruits-360_dataset_100x100/fruits-360/Test"
 
 # Number of bins per channel
-bins = 16
+bins = 8
 
 # Output CSV file
 output_csv = "colour_Histogram_Testing.csv"
