@@ -12,11 +12,9 @@ def predict():
         
         # Open the image
         image = Image.open(image_file)
-        
         # Here you can add your image processing and prediction code
         # For example, preprocess the image and pass it to your model
         prediction = "fruit_name"  # Replace this with the actual model prediction
-        
         return jsonify({"result": prediction})
     
     except Exception as e:
