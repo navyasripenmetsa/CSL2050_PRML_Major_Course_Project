@@ -1,1 +1,1 @@
-Link for HOG dataset : https://drive.google.com/file/d/1_HjftA6cxdPdCvg8DkamCteqGYK47ow8/view?usp=sharing
+Link for HOG dataset : https://drive.google.com/drive/folders/1mdBWwgG7FRcwnyvK_52CEmvJqSqBx7Ap?usp=sharing 
