@@ -3,18 +3,18 @@ drive.mount('/content/drive')
 import zipfile
 import os
 
-# Define paths
-zip_path = "/content/drive/My Drive/Fruits_Classification_Dataset.zip"  # Update if needed
-extract_path = "/content/Fruits_Classification_Dataset"  # Destination to extract
+# Path to ZIP file in Google Drive
+zip_path = "/content/drive/My Drive/Fruits_Classification_Dataset.zip"
 
-# Create extraction folder if it doesn't exist
-os.makedirs(extract_path, exist_ok=True)
+# Extract location inside Google Drive
+extract_path = "/content/drive/My Drive/Fruits_Classification_Dataset"
 
-# Extract ZIP file
+# Extract the ZIP file
 with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall(extract_path)
 
-print("Dataset extracted successfully!")
+print("Extraction complete!.")
+
 import os  
 import numpy as np  
 import pandas as pd  
