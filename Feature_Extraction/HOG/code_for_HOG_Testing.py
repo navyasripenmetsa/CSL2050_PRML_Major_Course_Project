@@ -1,20 +1,3 @@
-from google.colab import drive
-drive.mount('/content/drive')
-import zipfile
-import os
-
-# Path to ZIP file in Google Drive
-zip_path = "/content/drive/My Drive/Fruits_Classification_Dataset.zip"
-
-# Extract location inside Google Drive
-extract_path = "/content/drive/My Drive/Fruits_Classification_Dataset"
-
-# Extract the ZIP file
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    zip_ref.extractall(extract_path)
-
-print("Extraction complete!.")
-
 import os  
 import numpy as np  
 import pandas as pd  
@@ -23,66 +6,74 @@ from skimage.io import imread
 from skimage.color import rgb2gray  
 from skimage.transform import resize  
 import shutil  
-import os
-print(os.getcwd())  # Prints the current working directory
+from google.colab import drive  
 
-# Set the correct dataset path where testing images are stored  
-dataset_path = "Fruits_Classification_Dataset/fruits-360_dataset_100x100/fruits-360/Test"  # Update this if needed  
+# Mount Google Drive  
+drive.mount('/content/drive', force_remount=True)  
 
-# Set the path where extracted HOG features should be saved as CSV files  
+# Set the **already extracted dataset** path (Update this if needed)
+dataset_path = "/content/drive/My Drive/Fruits_Classification_Dataset/fruits-360_dataset_100x100/fruits-360/Test"  
+
+# Set the path to save extracted HOG features as CSV files  
 output_csv_path = "/content/drive/My Drive/HOG_features_CSV_files_Test"  
 
 # Create the output directory if it does not exist  
 os.makedirs(output_csv_path, exist_ok=True)  
 
-# Get the list of all folders (each folder represents a fruit class) and sort them alphabetically  
+# Get all class folders inside the dataset  
 class_folders = sorted([folder for folder in os.listdir(dataset_path) if os.path.isdir(os.path.join(dataset_path, folder))])  
 
-# Set the parameters for HOG feature extraction  
+# HOG feature extraction parameters  
 hog_params = {  
-    "orientations": 9,  # Number of gradient orientations  
-    "pixels_per_cell": (8, 8),  # Size of each cell in pixels  
-    "cells_per_block": (2, 2),  # Number of cells in each block  
-    "block_norm": "L2-Hys"  # Normalization method for blocks  
+    "orientations": 9,  
+    "pixels_per_cell": (8, 8),  
+    "cells_per_block": (2, 2),  
+    "block_norm": "L2-Hys"  
 }  
 
-# Loop through each class folder to process images  
+# Process images folder by folder  
 for class_name in class_folders:  
-    class_folder_path = os.path.join(dataset_path, class_name)  # Get full path of the class folder  
-    hog_features_list = []  # Create an empty list to store extracted features  
+    class_folder_path = os.path.join(dataset_path, class_name)  
+    hog_features_list = []  
 
-    # Loop through each image in the class folder  
+    # Process each image in the folder  
     for img_name in os.listdir(class_folder_path):  
-        img_path = os.path.join(class_folder_path, img_name)  # Get full path of the image  
-        img = imread(img_path)  # Read the image file  
+        img_path = os.path.join(class_folder_path, img_name)  
 
-        # Convert the image to grayscale because HOG works on single-channel images  
-        img_gray = rgb2gray(img)  
+        try:  
+            img = imread(img_path)  
 
-        # Resize the grayscale image to 96x96 to maintain consistency  
-        img_resized = resize(img_gray, (96, 96))  
+            if img is None:  
+                print(f"⚠️ Skipping unreadable file: {img_path}")  
+                continue  
 
-        # Extract HOG features from the resized grayscale image  
-        hog_features = hog(img_resized, **hog_params)  
+            # Convert image to grayscale  
+            img_gray = rgb2gray(img)  
 
-        # Append extracted features along with the class name  
-        hog_features_list.append(np.append(hog_features, class_name))  
+            # Resize image to 96x96  
+            img_resized = resize(img_gray, (96, 96))  
 
-    # Convert the extracted features list into a DataFrame  
-    df = pd.DataFrame(hog_features_list)  
+            # Extract HOG features  
+            hog_features = hog(img_resized, **hog_params)  
 
-    # Save the DataFrame as a CSV file (one file per class)  
-    df.to_csv(os.path.join(output_csv_path, f"{class_name}.csv"), index=False, header=False)  
+            # Append features along with the class name  
+            hog_features_list.append(np.append(hog_features, class_name))  
 
-    # Print a message to confirm that the file has been saved  
-    print(f" Saved: {class_name}.csv")  
+        except Exception as e:  
+            print(f"⚠️ Error processing {img_name}: {e}")  
+            continue  
 
-# Print a final message after all files are saved  
-print("\nAll HOG feature CSV files for testing data saved successfully!")  
+    # Save extracted features as CSV if any valid images were processed  
+    if hog_features_list:  
+        df = pd.DataFrame(hog_features_list)  
+        df.to_csv(os.path.join(output_csv_path, f"{class_name}.csv"), index=False, header=False)  
+        print(f" Saved: {class_name}.csv")  
+    else:  
+        print(f"No valid images found for class: {class_name}")  
 
-# Create a zip file containing all CSV files for easier download  
+# Zip all CSV files for easy download  
 zip_filename = "/content/drive/My Drive/HOG_features_CSV_files_Test.zip"  
 shutil.make_archive(zip_filename.replace(".zip", ""), 'zip', output_csv_path)  
 
-# Print a message to confirm that the zip file has been created  
-print(f"\n Zipped file created: {zip_filename}")
+print("\n All HOG feature CSV files saved and zipped successfully!")  
+print(f" Zipped file created: {zip_filename}")  
