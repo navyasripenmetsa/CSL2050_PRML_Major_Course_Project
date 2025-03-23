@@ -1,0 +1,33 @@
+from google.colab import drive
+drive.mount('/content/drive')
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import pandas as pd
+
+# Update the path according to your file location
+train_path = "/content/drive/My Drive/colour_Histogram_Training.csv"
+test_path = "/content/drive/My Drive/colour_Histogram_Testing.csv"
+
+# Load the CSV files
+df_train = pd.read_csv(train_path)
+df_test = pd.read_csv(test_path)
+
+# Display the first few rows
+df_train.head(), df_test.head()
+# Drop 'filename' column (not useful for training)
+df_train = df_train.drop(columns=["filename"])
+df_test = df_test.drop(columns=["filename"])
+
+# Encode class labels to numbers
+encoder = LabelEncoder()
+df_train["class"] = encoder.fit_transform(df_train["class"])
+df_test["class"] = encoder.transform(df_test["class"])  # Transform test labels safely
+
+# Split features and labels
+X_train = df_train.drop(columns=["class"])
+y_train = df_train["class"]
+X_test = df_test.drop(columns=["class"])
+y_test = df_test["class"]
+
