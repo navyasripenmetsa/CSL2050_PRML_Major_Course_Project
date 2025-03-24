@@ -22,22 +22,47 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 gif_path = os.path.join(base_dir, "123.gif")
 image_path = os.path.join(base_dir, "image.png")
 
-# --- Background GIF ---
-base64_gif = get_base64(gif_path)
-gif_css = f"""
-<style>
-.stApp {{
-    background-image: url("data:image/gif;base64,{base64_gif}");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-}}
-</style>
-"""
-st.markdown(gif_css, unsafe_allow_html=True)
+# --- Sidebar Toggle Switch ---
+with st.sidebar:
+    enable_gif = st.toggle("Enable GIF Background", value=True)
 
-# --- Sidebar Background ---
+# --- Apply Background GIF (if enabled) ---
+if enable_gif:
+    base64_gif = get_base64(gif_path)
+    gif_css = f"""
+    <style>
+    .stApp {{
+        position: relative;
+        background-image: url("data:image/gif;base64,{base64_gif}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }}
+    .stApp::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.6);  /* Semi-transparent white overlay */
+        z-index: 0;
+    }}
+    .stApp > * {{
+        position: relative;
+        z-index: 1;
+    }}
+
+    /* Optional: Add shadow to text for better contrast */
+    h1, h2, h3, h4, h5, h6, p, li, label {{
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }}
+    </style>
+    """
+    st.markdown(gif_css, unsafe_allow_html=True)
+
+# --- Sidebar Background Image ---
 base64_image = get_base64(image_path)
 sidebar_css = f"""
 <style>
@@ -80,22 +105,22 @@ else:
     st.header("Project : Fruits Classification")
     st.divider()
 
-    st.markdown("🤖 TECHNIQUES USED :")
-    st.markdown("*1. SVM (Support Vector Machines)*")
-    st.markdown("*2. KNN (K-Nearest Neighbours)*")
-    st.markdown("*3. RF (Random Forest)*")
-    st.markdown("*4. LightGBM*")
-    st.markdown("*5. Naive-Bayes*")
-    st.markdown("*6. Decision-Trees*")
-    st.markdown("*7. Logistic Regression*")
+    st.markdown("🤖 **TECHNIQUES USED:**")
+    st.markdown("* 1. SVM (Support Vector Machines)*")
+    st.markdown("* 2. KNN (K-Nearest Neighbours)*")
+    st.markdown("* 3. RF (Random Forest)*")
+    st.markdown("* 4. LightGBM*")
+    st.markdown("* 5. Naive-Bayes*")
+    st.markdown("* 6. Decision-Trees*")
+    st.markdown("* 7. Logistic Regression*")
     st.divider()
 
-    st.markdown("👨‍💻 DEVELOPED BY :")
-    st.markdown("*JADALA CHANDANA (B23CM1017)*")
-    st.markdown("*MEEJURU LAKSHMI SOWMYA (B23CM1024)*")
-    st.markdown("*PENMETSA NAVYASRI (B23CS1052)*")
-    st.markdown("*GATTU CHARITHA (B23EE1021)*")
-    st.markdown("*TUMMA SAI CHANDANA (B23EE1077)*")
+    st.markdown("👨‍💻 **DEVELOPED BY:**")
+    st.markdown("* JADALA CHANDANA (B23CM1017)*")
+    st.markdown("* MEEJURU LAKSHMI SOWMYA (B23CM1024)*")
+    st.markdown("* PENMETSA NAVYASRI (B23CS1052)*")
+    st.markdown("* GATTU CHARITHA (B23EE1021)*")
+    st.markdown("* TUMMA SAI CHANDANA (B23EE1077)*")
     st.divider()
 
-    st.markdown("🔗 GITHUB LINK: [Click Here](https://github.com/navyasripenmetsa/CSL2050_PRML_Major_Course_Project)")
+    st.markdown("🔗 **GITHUB LINK:** [Click Here](https://github.com/navyasripenmetsa/CSL2050_PRML_Major_Course_Project)")
