@@ -1,1 +1,1 @@
-Implementing Fruits Classifier using Naive Bayes
+Fruits classification PRML course project
