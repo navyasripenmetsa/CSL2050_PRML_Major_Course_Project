@@ -19,8 +19,8 @@ def get_base64(file_path):
 
 # --- Get Absolute Paths ---
 base_dir = os.path.dirname(os.path.abspath(__file__))
-gif_path = os.path.join(base_dir, "123.gif")
-image_path = os.path.join(base_dir, "image.png")
+gif_path = os.path.join(base_dir, "UI_background.gif")
+image_path = os.path.join(base_dir, "UI_sidebar_image.png")
 
 # --- Sidebar Toggle Switch ---
 with st.sidebar:
@@ -124,3 +124,4 @@ else:
     st.divider()
 
     st.markdown("🔗 **GITHUB LINK:** [Click Here](https://github.com/navyasripenmetsa/CSL2050_PRML_Major_Course_Project)")
+
