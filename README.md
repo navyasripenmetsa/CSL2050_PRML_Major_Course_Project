@@ -8,15 +8,13 @@ ___
 **LINKS FOR DATASETS EXTRACTED USING COLOUR HISTOGRAM AND HISTOGRAM OF ORIENTED GRADIENTS**
 1. Colour Histogram (24 Features)
    <br>
-   - Link for colour_Histogram_Training.csv : https://drive.google.com/file/d/1shSwoXCPUEYywl2Pd46Rnni3Bwc7zhpF/view?usp=sharing
-   <br>
-   - Link for colour_Histogram_Testing.csv : https://drive.google.com/file/d/1QHniGVHU-zDWnZFrk9UQIbNCzLaKNkVN/view?usp=sharing 
+   * Link for colour_Histogram_Training.csv : https://drive.google.com/file/d/1shSwoXCPUEYywl2Pd46Rnni3Bwc7zhpF/view?usp=sharing<br>
+   * Link for colour_Histogram_Testing.csv : https://drive.google.com/file/d/1QHniGVHU-zDWnZFrk9UQIbNCzLaKNkVN/view?usp=sharing 
 
 2. Histogram of Gradients (324 Features)
    <br>
-   - Link for HOG Training CSV files : https://drive.google.com/file/d/1w_EriiccrFBZkKDifRoh7ZrZbJ1rk6Ap/view?usp=sharing
-   <br>
-   - Link for HOG Testing CSV files :https://drive.google.com/file/d/1Vi3ZkiYKRI7gwTP6ujuMBU9nTXKz5bme/view?usp=drive_link
+   * Link for HOG Training CSV files : https://drive.google.com/file/d/1w_EriiccrFBZkKDifRoh7ZrZbJ1rk6Ap/view?usp=sharing<br>
+   * Link for HOG Testing CSV files :https://drive.google.com/file/d/1Vi3ZkiYKRI7gwTP6ujuMBU9nTXKz5bme/view?usp=drive_link
 ___
 
 
